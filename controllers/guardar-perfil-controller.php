@@ -21,14 +21,19 @@ if (!$idUsuario) {
 $fotoRuta = "";
 if (isset($_FILES['foto_perfil']) && $_FILES['foto_perfil']['error'] === UPLOAD_ERR_OK) {
     $nombreArchivo = uniqid() . "_" . basename($_FILES['foto_perfil']['name']);
+
+    // Ruta absoluta del servidor para guardar el archivo
     $directorio = "../uploads/";
     if (!is_dir($directorio)) mkdir($directorio, 0777, true);
-    $rutaCompleta = $directorio . $nombreArchivo;
+
+    $rutaCompleta = $directorio . $nombreArchivo; // <- AQUÍ estaba el problema
+    $rutaPublica = "uploads/" . $nombreArchivo;   // <- esta es la que irá a la base de datos
 
     if (move_uploaded_file($_FILES['foto_perfil']['tmp_name'], $rutaCompleta)) {
-        $fotoRuta = $rutaCompleta;
+        $fotoRuta = $rutaPublica;
     }
 }
+
 
 $nombre = $_POST['nombre'] ?? '';
 $ciudad = $_POST['ciudad'] ?? '';

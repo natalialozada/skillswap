@@ -551,6 +551,87 @@
   align-self: center;
 }
 
+.contenedor-bienvenida {
+  text-align: center;
+  color: white;
+  padding: 40px 20px;
+  background-color: black;
+}
+.contenedor-bienvenida h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+.contenedor-bienvenida h1 .purple {
+  color: #CB6CE6;
+}
+.contenedor-bienvenida p {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  color: white;
+}
+
+.contenedor-usuarios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 40px 80px;
+  justify-items: center;
+  background-color: black;
+}
+@media (max-width: 480px) {
+  .contenedor-usuarios {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+}
+@media (max-width: 768px) {
+  .contenedor-usuarios {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 30px;
+  }
+}
+
+.card-usuario {
+  background-color: black;
+  border: 2px solid white;
+  border-radius: 12px;
+  padding: 20px;
+  width: 100%;
+  max-width: 250px;
+  text-align: center;
+  transition: transform 0.3s ease, border-color 0.3s;
+  line-height: 30px;
+}
+.card-usuario:hover {
+  transform: translateY(-5px);
+  border-color: #CB6CE6;
+}
+.card-usuario .avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border: 3px solid white;
+}
+.card-usuario h3 {
+  font-size: 1.2rem;
+  margin: 10px 0 6px;
+  font-weight: bold;
+  color: white;
+}
+.card-usuario p {
+  font-size: 0.95rem;
+  color: #ffffff;
+  margin: 6px 0;
+  white-space: pre-line;
+}
+.card-usuario .btn-primario {
+  margin-top: 12px;
+  font-size: 0.95rem;
+  padding: 10px 25px;
+}
+
 .footer {
   background-color: black;
   color: #ffffff;

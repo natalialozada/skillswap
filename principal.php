@@ -10,6 +10,8 @@
     
 </head>
 <body>
+    <?php require_once "views/header2.php"; ?>
     <?php require_once "views/principal-view.php"; ?>
+    <?php require_once "views/footer.php"; ?>
 </body>
 </html>

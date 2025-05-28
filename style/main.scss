@@ -641,6 +641,96 @@ $color-hover: #8b6396;
   }
 }
 
+//visualización perfiles
+.contenedor-bienvenida {
+  text-align: center;
+  color: white;
+  padding: 40px 20px;
+  background-color: black;
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+
+    .purple {
+      color: $color-principal;
+    }
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    color: lighten($color-texto, 15%);
+  }
+}
+
+.contenedor-usuarios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 30px;
+  padding: 40px 80px;
+  justify-items: center;
+  background-color: black;
+
+  @include responsive(mobile) {
+    grid-template-columns: 1fr; 
+    padding: 20px;
+  }
+
+  @include responsive(tablet) {
+    grid-template-columns: repeat(2, 1fr); 
+    padding: 30px;
+  }
+}
+
+
+.card-usuario {
+  background-color: black;
+  border: 2px solid white;
+  border-radius: 12px;
+  padding: 20px;
+  width: 100%;
+  max-width: 250px;
+  text-align: center;
+  transition: transform 0.3s ease, border-color 0.3s;
+  line-height: 30px;
+
+  &:hover {
+    transform: translateY(-5px);
+    border-color: $color-principal;
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 3px solid white;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    margin: 10px 0 6px;
+    font-weight: bold;
+    color: white;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: $color-texto;
+    margin: 6px 0;
+    white-space: pre-line;
+  }
+
+  .btn-primario {
+    margin-top: 12px;
+    font-size: 0.95rem;
+    padding: 10px 25px;
+  }
+}
+
+
 // Footer
 .footer {
   background-color: black;

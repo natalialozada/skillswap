@@ -5,6 +5,7 @@ if (!isset($_SESSION['usuario'])) {
     header('Location: index.php');
     exit();
 }
+
 require_once __DIR__ . '/../models/login-model.php';
 require_once __DIR__ . '/../models/guardar-perfil-model.php';
 
@@ -14,28 +15,21 @@ $result = $login->getData("SELECT id_usu FROM usuarios WHERE nombre = ?", "s", $
 $idUsuario = $result['id_usu'] ?? null;
 
 $mostrarModal = false;
+$usuarios = [];
 
 if ($idUsuario) {
     $modelo = new PerfilModel();
     $perfil = $modelo->getData("SELECT * FROM perfiles WHERE id_usu = ?", "i", $idUsuario);
     if (!$perfil) {
         $mostrarModal = true;
+    } else {
+        $usuarios = $modelo->getAllUsersExcept($idUsuario);
     }
 }
-
 ?>
-
-<div class="contenedor-sesion">
-    <div class="usuario">
-        Hola, <?php echo $_SESSION["usuario"]; ?>
-    </div>
-    <a href="views/cerrar-sesion.php" class="cerrar-sesion">Cerrar Sesión</a>
-</div>
-
 
 <?php if ($mostrarModal): ?>
 <div id="modalPerfil" class="modal">
-
   <div class="modal-contenido">
     <div class="encabezado-modal">
       <h2>¡Bienvenido! Primero crea tu perfil</h2>
@@ -67,6 +61,23 @@ if ($idUsuario) {
     </form>
   </div>
 </div>
+<?php else: ?>
+
+<div class="contenedor-bienvenida">
+  <h1>¡HOLA, <span class="purple"><?php echo strtoupper($_SESSION['usuario']); ?></span>!</h1>
+  <p>Explora y empieza a conectar con más usuarios...</p>
+</div>
+
+<div class="contenedor-usuarios">
+  <?php foreach ($usuarios as $usu): ?>
+    <div class="card-usuario">
+      <img class="avatar" src="<?php echo $usu['foto_perfil']; ?>" alt="Foto de <?php echo $usu['nombre']; ?>">
+      <h3><?php echo strtoupper($usu['nombre']); ?></h3>
+      <p><strong>Quiere Aprender:</strong><br><?php echo nl2br($usu['habilidades_aprender']); ?></p>
+      <p><strong>Puede Enseñarte:</strong><br><?php echo nl2br($usu['habilidades_ensenar']); ?></p>
+      <button class="btn-primario">Conectar</button>
+    </div>
+  <?php endforeach; ?>
+</div>
+
 <?php endif; ?>
-
-

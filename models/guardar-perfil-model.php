@@ -50,4 +50,24 @@ class PerfilModel {
 
         return $result;
     }
+
+    public function getAllUsersExcept($idUsuario) {
+        try {
+            $mysqli = Conex1::con1();
+            $sql = "SELECT u.nombre AS nombre, p.* 
+                    FROM perfiles p 
+                    JOIN usuarios u ON u.id_usu = p.id_usu 
+                    WHERE p.id_usu != ?";
+            $stmt = $mysqli->prepare($sql);
+            $stmt->bind_param("i", $idUsuario);
+            $stmt->execute();
+            $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        } catch (Exception $e) {
+            $result = [];
+        } finally {
+            if ($stmt) $stmt->close();
+            $mysqli->close();
+        }
+        return $result;
+    }
 }
