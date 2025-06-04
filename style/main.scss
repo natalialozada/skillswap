@@ -42,6 +42,7 @@ $color-hover: #8b6396;
   font-weight: 700;
   transition: background-color 0.3s ease;
   text-decoration: none;
+  font-family: inherit;
 
   &:hover {
     background-color: $color-hover;
@@ -503,7 +504,7 @@ $color-hover: #8b6396;
   background-color: rgba(0,0,0,0.9);
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   z-index: 9999;
 }
@@ -517,6 +518,7 @@ $color-hover: #8b6396;
   flex-direction: row;
   overflow: hidden;
   margin-top: 55px;
+
 
   .encabezado-modal {
   position: absolute;
@@ -537,12 +539,19 @@ $color-hover: #8b6396;
   }
 }
 
+
 }
 
-#form-perfil {
+#form-editar-perfil {
   display: flex;
   flex-direction: row;
   width: 100%;
+}
+.modal-contenido--miPerfil {
+  @extend .modal-contenido;
+  width: 84%;
+  margin: 40px 0;
+
 }
 
 .lado-izquierdo {
@@ -638,6 +647,10 @@ $color-hover: #8b6396;
   .btn-primario {
     margin-top: 10px;
     align-self: center;
+  }
+  .acciones{
+    display: flex;
+    gap: 20px;
   }
 }
 

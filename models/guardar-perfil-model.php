@@ -70,4 +70,24 @@ class PerfilModel {
         }
         return $result;
     }
+
+    public function actualizarPerfil($sql, $types, ...$params) {
+        try {
+            $mysqli = Conex1::con1();
+            $stmt = $mysqli->prepare($sql);
+            if (!$stmt) throw new Exception("Error preparando: " . $mysqli->error);
+    
+            $stmt->bind_param($types, ...$params);
+            if (!$stmt->execute()) throw new Exception("Error ejecutando: " . $stmt->error);
+    
+            return ["status" => "success", "message" => "Perfil actualizado"];
+        } catch (Exception $e) {
+            return ["status" => "error", "message" => $e->getMessage()];
+        } finally {
+            if ($stmt) $stmt->close();
+            $mysqli->close();
+        }
+    }
 }
+
+

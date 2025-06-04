@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 
 if (!isset($_SESSION['usuario'])) {
     header('Location: index.php');
@@ -75,7 +77,9 @@ if ($idUsuario) {
       <h3><?php echo strtoupper($usu['nombre']); ?></h3>
       <p><strong>Quiere Aprender:</strong><br><?php echo nl2br($usu['habilidades_aprender']); ?></p>
       <p><strong>Puede Enseñarte:</strong><br><?php echo nl2br($usu['habilidades_ensenar']); ?></p>
-      <button class="btn-primario">Conectar</button>
+
+      <button class="btn-primario btn-conectar" data-id="<?php echo $usu['id_usu']; ?>">Conectar</button>
+
     </div>
   <?php endforeach; ?>
 </div>

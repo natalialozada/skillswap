@@ -9,6 +9,7 @@
   font-weight: 700;
   transition: background-color 0.3s ease;
   text-decoration: none;
+  font-family: inherit;
 }
 .btn-primario:hover {
   background-color: #8b6396;
@@ -426,12 +427,12 @@
   background-color: rgba(0, 0, 0, 0.9);
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   z-index: 9999;
 }
 
-.modal-contenido {
+.modal-contenido, .modal-contenido--miPerfil {
   background-color: black;
   border: 2px solid white;
   border-radius: 12px;
@@ -441,7 +442,7 @@
   overflow: hidden;
   margin-top: 55px;
 }
-.modal-contenido .encabezado-modal {
+.modal-contenido .encabezado-modal, .modal-contenido--miPerfil .encabezado-modal {
   position: absolute;
   top: 20px;
   left: 50%;
@@ -449,19 +450,24 @@
   text-align: center;
   color: white;
 }
-.modal-contenido .encabezado-modal h2 {
+.modal-contenido .encabezado-modal h2, .modal-contenido--miPerfil .encabezado-modal h2 {
   font-size: 1.2rem;
   margin-bottom: 10px;
 }
-.modal-contenido .encabezado-modal .texto-usuario {
+.modal-contenido .encabezado-modal .texto-usuario, .modal-contenido--miPerfil .encabezado-modal .texto-usuario {
   font-size: 1.1rem;
   color: white;
 }
 
-#form-perfil {
+#form-editar-perfil {
   display: flex;
   flex-direction: row;
   width: 100%;
+}
+
+.modal-contenido--miPerfil {
+  width: 84%;
+  margin: 40px 0;
 }
 
 .lado-izquierdo {
@@ -549,6 +555,10 @@
 .lado-derecho .btn-primario {
   margin-top: 10px;
   align-self: center;
+}
+.lado-derecho .acciones {
+  display: flex;
+  gap: 20px;
 }
 
 .contenedor-bienvenida {

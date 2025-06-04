@@ -53,3 +53,14 @@ CREATE TABLE perfiles (
   FOREIGN KEY (id_usu) REFERENCES usuarios(id_usu)
 );
 
+CREATE TABLE conexiones (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_remitente INT NOT NULL,
+  id_destino INT NOT NULL,
+  estado ENUM('pendiente', 'aceptado', 'rechazado') DEFAULT 'pendiente',
+  fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (id_remitente) REFERENCES usuarios(id_usu) ON DELETE CASCADE,
+  FOREIGN KEY (id_destino) REFERENCES usuarios(id_usu) ON DELETE CASCADE
+);
+
+

@@ -163,3 +163,79 @@ const form = document.getElementById("form-perfil");
       }
     });
   }
+
+  const formEditar = document.getElementById("form-editar-perfil");
+
+if (formEditar) {
+  formEditar.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const formData = new FormData(formEditar);
+
+    try {
+      const res = await fetch("controllers/editar-perfil-controller.php", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await res.json();
+      if (result.status === "success") {
+        alert("Perfil actualizado correctamente");
+        window.location.href = "mi-perfil.php";
+      } else {
+        alert("Error: " + result.message);
+      }
+    } catch (err) {
+      console.error("Error de red:", err);
+      alert("Error de red");
+    }
+  });
+
+  const preview = document.getElementById("preview-img");
+  const inputFile = document.getElementById("foto_perfil");
+
+  if (inputFile && preview) {
+    inputFile.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          preview.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+}
+/*botón conectar principal*/ 
+document.addEventListener('DOMContentLoaded', () => {
+  const botonesConectar = document.querySelectorAll('.btn-conectar');
+
+  botonesConectar.forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+
+      const idDestino = btn.dataset.id;
+
+      try {
+        const response = await fetch("controllers/enviar-solicitud-controller.php", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: `id_destino=${encodeURIComponent(idDestino)}`
+        });
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+          alert("✅ Solicitud enviada con éxito.");
+        } else {
+          alert("⚠️ " + data.message);
+        }
+      } catch (error) {
+        alert("Error en la red. Intenta de nuevo.");
+        console.error(error);
+      }
+    });
+  });
+});
