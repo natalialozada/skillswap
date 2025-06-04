@@ -67,6 +67,10 @@ if ($idUsuario) {
 
 <div class="contenedor-bienvenida">
   <h1>¡HOLA, <span class="purple"><?php echo strtoupper($_SESSION['usuario']); ?></span>!</h1>
+  <div class="campana-notificaciones">
+  <img src="assets/img/campana.png" alt="Notificaciones" id="campana-icono" />
+  <span id="contador-notis" class="contador" style="display:none;">0</span>
+</div>
   <p>Explora y empieza a conectar con más usuarios...</p>
 </div>
 

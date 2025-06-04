@@ -642,6 +642,65 @@
   padding: 10px 25px;
 }
 
+.notificaciones-container {
+  background-color: black;
+}
+
+.notificaciones-layout {
+  background-color: black;
+  display: flex;
+  gap: 30px;
+  padding: 30px;
+}
+.notificaciones-layout .menu-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.notificaciones-layout .menu-lateral .tab-btn {
+  background: black;
+  color: white;
+  border: 2px solid white;
+  padding: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.notificaciones-layout .menu-lateral .tab-btn.active {
+  background: white;
+  color: black;
+}
+.notificaciones-layout .panel-notificaciones {
+  flex: 1;
+  border: 2px solid white;
+  padding: 20px;
+}
+.notificaciones-layout .panel-notificaciones .tab-content {
+  display: none;
+}
+.notificaciones-layout .panel-notificaciones .tab-content.active {
+  display: block;
+}
+.notificaciones-layout .panel-notificaciones .tab-content .fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #555;
+  padding-bottom: 10px;
+  color: white;
+}
+.notificaciones-layout .panel-notificaciones .tab-content .estado {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-left: 15px;
+}
+.notificaciones-layout .panel-notificaciones .tab-content .nota {
+  margin-top: 30px;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #ccc;
+}
+
 .footer {
   background-color: black;
   color: #ffffff;

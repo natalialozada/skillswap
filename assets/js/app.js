@@ -239,3 +239,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("controllers/notificaciones-controller.php")
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === "success" && data.count > 0) {
+        const contador = document.getElementById("contador-notis");
+        contador.textContent = data.count;
+        contador.style.display = "inline-block";
+      }
+    })
+    .catch(err => console.error("Error al obtener notificaciones:", err));
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const btns = document.querySelectorAll(".tab-btn");
+  const tabs = document.querySelectorAll(".tab-content");
+
+  btns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      btns.forEach(b => b.classList.remove("active"));
+      tabs.forEach(tab => tab.classList.remove("active"));
+
+      btn.classList.add("active");
+      document.getElementById(btn.dataset.tab).classList.add("active");
+    });
+  });
+
+ 
+  const campana = document.getElementById("campana-icono");
+  if (campana) {
+    campana.addEventListener("click", () => {
+      window.location.href = "notificaciones.php";
+    });
+  }
+});

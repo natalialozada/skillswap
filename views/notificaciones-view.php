@@ -1,70 +1,39 @@
-<?php
-require_once __DIR__ . '/../models/login-model.php';
-require_once __DIR__ . '/../models/solicitud-model.php';
+<div class="notificaciones-container">
+ 
+  <h2>NOTIFICACIONES</h2>
 
-if (session_status() === PHP_SESSION_NONE) session_start();
-
-$login = new login();
-$solicitudes = new SolicitudModel();
-
-$usuario = $_SESSION['usuario'] ?? null;
-
-$result = $login->getData("SELECT id_usu FROM usuarios WHERE nombre = ?", "s", $usuario);
-$idUsuario = $result['id_usu'] ?? null;
-
-$recibidas = $solicitudes->obtenerSolicitudesRecibidas($idUsuario);
-$enviadas = $solicitudes->obtenerSolicitudesEnviadas($idUsuario);
-?>
-
-<div class="notificaciones-wrapper">
-  <header class="header">
-    <div class="logo">
-      <img src="assets/img/logo-sin-fondo.png" alt="logo" class="logo-img">
-      <img src="assets/img/nombre-skill-swap.png" alt="Skill Swap" class="logo-texto">
+  <div class="notificaciones-layout">
+    <div class="menu-lateral">
+      <button class="tab-btn active" data-tab="recibidas">RECIBIDAS</button>
+      <button class="tab-btn" data-tab="enviadas">ENVIADAS</button>
     </div>
-    <nav class="nav">
-      <a href="principal.php" class="nav-link">Volver</a>
-      <a href="views/cerrar-sesion.php" class="nav-link btn-registrar">Cerrar Sesión</a>
-    </nav>
-  </header>
 
-  <h2 class="titulo-notificaciones">NOTIFICACIONES</h2>
-
-  <div class="notificaciones-contenedor">
-    <div class="columnas">
-      <div class="columna">SOLICITUDES</div>
-      <div class="columna">ENVIADAS</div>
-    </div>
-    <div class="contenidos">
-      <!-- Recibidas -->
-      <div class="notificaciones-recibidas">
-        <?php foreach ($recibidas as $sol): ?>
-          <div class="notificacion">
-            <span><strong><?php echo $sol['nombre']; ?></strong> quiere conectar</span>
-            <a href="ver-perfil.php?id=<?php echo $sol['id_usu']; ?>" class="btn-mini">Ver Perfil</a>
-            <form action="controllers/responder-solicitud-controller.php" method="post">
-              <input type="hidden" name="id_conexion" value="<?php echo $sol['id_conexion']; ?>">
-              <button type="submit" name="accion" value="aceptado" class="btn-mini">✔</button>
-              <button type="submit" name="accion" value="rechazado" class="btn-mini">✖</button>
-            </form>
+    <div class="panel-notificaciones">
+      <div class="tab-content active" id="recibidas">
+        <?php foreach ($solicitudesRecibidas as $sol): ?>
+          <div class="fila">
+            <span><?php echo htmlspecialchars($sol['nombre']); ?> quiere conectar</span>
+            <a href="ver-perfil.php?id=<?php echo $sol['id_remitente']; ?>" class="btn-primario">Ver perfil</a>
+            <?php if ($sol['estado'] === 'pendiente'): ?>
+              <button class="btn-aceptar btn-primario" data-id="<?php echo $sol['id']; ?>">Aceptar</button>
+              <button class="btn-rechazar btn-primario" data-id="<?php echo $sol['id']; ?>">Rechazar</button>
+            <?php endif; ?>
           </div>
         <?php endforeach; ?>
       </div>
 
-      <!-- Enviadas -->
-      <div class="notificaciones-enviadas">
-        <?php foreach ($enviadas as $env): ?>
-          <div class="notificacion">
-            <span>Quieres conectar con <strong><?php echo $env['nombre']; ?></strong></span>
-            <a href="ver-perfil.php?id=<?php echo $env['id_usu']; ?>" class="btn-mini">Ver Perfil</a>
-            <span class="estado <?php echo $env['estado']; ?>">
-              <?php echo strtoupper($env['estado']); ?>
-            </span>
+      <div class="tab-content" id="enviadas">
+        <?php foreach ($solicitudesEnviadas as $sol): ?>
+          <div class="fila">
+            <span>Quieres conectar con <?php echo htmlspecialchars($sol['nombre']); ?></span>
+            <a href="ver-perfil.php?id=<?php echo $sol['id_destino']; ?>" class="btn-primario">Ver perfil</a>
+            <span class="estado"><?php echo strtoupper($sol['estado']); ?></span>
           </div>
         <?php endforeach; ?>
+        <p class="nota">Recuerda que si aceptan tu solicitud aparecerá el número de teléfono del usuario en su perfil</p>
       </div>
     </div>
   </div>
+</div>
 
-  <p class="info-aviso">RECUERDA QUE SI ACEPTAN TU SOLICITUD APARECERÁ EL NÚMERO DE TELÉFONO DEL USUARIO EN SU PERFIL</p>
 </div>
