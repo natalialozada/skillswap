@@ -1,4 +1,4 @@
-<?php
+<?php/*
 session_start();
 require_once "../models/login-model.php";
 require_once "../models/solicitud-model.php";

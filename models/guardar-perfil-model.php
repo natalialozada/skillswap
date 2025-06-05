@@ -88,6 +88,33 @@ class PerfilModel {
             $mysqli->close();
         }
     }
+
+    public function actualizarDato($sql, $types, ...$params)
+{
+    $conn = Conex1::con1(); // Usa tu clase de conexión
+
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        return ["status" => "error", "message" => "Error en prepare: " . $conn->error];
+    }
+
+    $stmt->bind_param($types, ...$params);
+    $success = $stmt->execute();
+
+    $stmt->close();
+    $conn->close();
+
+    if ($success) {
+        return ["status" => "success"];
+    } else {
+        return ["status" => "error", "message" => "Error al actualizar: " . $stmt->error];
+    }
 }
+}
+
+
+
+
+
 
 

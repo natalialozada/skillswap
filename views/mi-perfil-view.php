@@ -24,6 +24,8 @@ if (!$idUsuario) {
 $modelo = new PerfilModel();
 $perfil = $modelo->getData("SELECT * FROM perfiles WHERE id_usu = ?", "i", $idUsuario);
 
+$usuario = $login->getData("SELECT tel FROM usuarios WHERE id_usu = ?", "i", $idUsuario);
+$telefono = $usuario['tel'] ?? 'No disponible';
 if (!$perfil) {
     echo "<p>No has creado tu perfil aún.</p>";
     exit;
@@ -38,6 +40,8 @@ if (!$perfil) {
     <p><?php echo $perfil['ciudad']; ?></p>
     <h3>Disponibilidad</h3>
     <p><?php echo $perfil['dias_disponibles']; ?></p>
+    <h3>Teléfono</h3>
+    <p><?php echo htmlspecialchars($telefono); ?></p>
   </div>
 
   <div class="lado-derecho">

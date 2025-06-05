@@ -23,13 +23,17 @@
       </div>
 
       <div class="tab-content" id="enviadas">
-        <?php foreach ($solicitudesEnviadas as $sol): ?>
-          <div class="fila">
-            <span>Quieres conectar con <?php echo htmlspecialchars($sol['nombre']); ?></span>
-            <a href="ver-perfil.php?id=<?php echo $sol['id_destino']; ?>" class="btn-primario">Ver perfil</a>
-            <span class="estado"><?php echo strtoupper($sol['estado']); ?></span>
-          </div>
-        <?php endforeach; ?>
+  <?php foreach ($solicitudesEnviadas as $sol): ?>
+    <div class="fila">
+      <span>Quieres conectar con <?php echo htmlspecialchars($sol['nombre']); ?></span>
+      <a href="ver-perfil.php?id=<?php echo $sol['id_destino']; ?>" class="btn-primario">Ver perfil</a>
+      <span class="estado"><?php echo strtoupper($sol['estado']); ?></span>
+
+      <?php if ($sol['estado'] === 'aceptada'): ?>
+        <p class="telefono">Teléfono: <?php echo htmlspecialchars($sol['tel_destino']); ?></p>
+      <?php endif; ?>
+    </div>
+  <?php endforeach; ?>
         <p class="nota">Recuerda que si aceptan tu solicitud aparecerá el número de teléfono del usuario en su perfil</p>
       </div>
     </div>

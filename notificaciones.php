@@ -23,7 +23,7 @@ $solicitudesRecibidas = $modelo->getAll(
 );
 
 $solicitudesEnviadas = $modelo->getAll(
-    "SELECT c.*, u.nombre 
+    "SELECT c.*, u.nombre, u.tel AS tel_destino
      FROM conexiones c 
      JOIN usuarios u ON c.id_destino = u.id_usu 
      WHERE c.id_remitente = ?", "i", $idUsuario

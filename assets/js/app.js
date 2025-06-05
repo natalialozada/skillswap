@@ -275,3 +275,76 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+//Procesar solicitud
+
+document.querySelectorAll('.btn-aceptar, .btn-rechazar').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const id = btn.dataset.id;
+    const accion = btn.classList.contains('btn-aceptar') ? 'aceptar' : 'rechazar';
+
+    const res = await fetch('controllers/procesar-solicitud-controller.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `id=${id}&accion=${accion}`
+    });
+
+    const data = await res.json();
+    if (data.status === 'success') {
+      alert(`Solicitud ${accion}ada`);
+      location.reload(); 
+    } else {
+      alert('Error: ' + data.message);
+    }
+  });
+});
+
+//Aceptar solicitud
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".btn-aceptar").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const id = btn.dataset.id;
+
+      const response = await fetch("controllers/aceptar-solicitud-controller.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `id=${encodeURIComponent(id)}`
+      });
+
+      const data = await response.json();
+
+      if (data.status === "success") {
+        alert("Solicitud aceptada ✅");
+        location.reload(); // Recarga para reflejar cambios
+      } else {
+        alert("⚠️ " + data.message);
+      }
+    });
+  });
+});
+
+//Rechazar solicitud
+document.querySelectorAll(".btn-rechazar").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const id = btn.dataset.id;
+
+    const response = await fetch("controllers/rechazar-solicitud-controller.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `id=${encodeURIComponent(id)}`
+    });
+
+    const data = await response.json();
+
+    if (data.status === "success") {
+      alert("Solicitud rechazada ❌");
+      location.reload(); // Para ver el cambio
+    } else {
+      alert("⚠️ " + data.message);
+    }
+  });
+});

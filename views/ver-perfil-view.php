@@ -23,6 +23,14 @@
         <?php endforeach; ?>
       </ul>
 
+      <?php if ($mostrarTelefono && $telefonoUsuario): ?>
+  <h3>Teléfono</h3>
+  <p><?php echo htmlspecialchars($telefonoUsuario); ?></p>
+<?php else: ?>
+  <h3>Teléfono</h3>
+  <p class="texto-bloqueado">Solo visible cuando haya una conexión aceptada</p>
+<?php endif; ?>
+
       <a href="principal.php" class="btn-primario">Volver</a>
     </div>
   </div>

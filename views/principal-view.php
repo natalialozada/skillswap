@@ -46,6 +46,7 @@ if ($idUsuario) {
         <input type="text" name="nombre" placeholder="Nombre" required />
         <input type="text" name="ciudad" placeholder="Ciudad, País" required />
         <input type="text" name="dias_disponibles" placeholder="Días disponibles" required />
+        <input type="text" name="telefono" placeholder="Número de teléfono" required />
       </div>
 
       <div class="lado-derecho">

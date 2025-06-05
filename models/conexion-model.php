@@ -46,4 +46,13 @@ class ConexionModel
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
+    public function updateData($sql, $types, ...$params)
+{
+    $stmt = $this->conn->prepare($sql);
+    if (!$stmt) return false;
+
+    $stmt->bind_param($types, ...$params);
+    return $stmt->execute();
+}
+
 }
