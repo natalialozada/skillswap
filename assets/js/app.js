@@ -147,7 +147,8 @@ const form = document.getElementById("form-perfil");
       }
     });
   }
-
+  
+  //guardar imagen
   const inputFile = document.getElementById("foto_perfil");
   const preview = document.querySelector(".foto-perfil-preview");
 
@@ -163,6 +164,8 @@ const form = document.getElementById("form-perfil");
       }
     });
   }
+
+  //edición formulario
 
   const formEditar = document.getElementById("form-editar-perfil");
 
@@ -254,6 +257,8 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch(err => console.error("Error al obtener notificaciones:", err));
 });
 
+//botón campana
+
 document.addEventListener("DOMContentLoaded", () => {
   const btns = document.querySelectorAll(".tab-btn");
   const tabs = document.querySelectorAll(".tab-content");
@@ -318,7 +323,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (data.status === "success") {
         alert("Solicitud aceptada ✅");
-        location.reload(); // Recarga para reflejar cambios
+        location.reload(); 
       } else {
         alert("⚠️ " + data.message);
       }
@@ -343,7 +348,7 @@ document.querySelectorAll(".btn-rechazar").forEach(btn => {
 
     if (data.status === "success") {
       alert("Solicitud rechazada ❌");
-      location.reload(); // Refresca para mostrar "RECHAZADA"
+      location.reload(); 
     } else {
       alert("⚠️ " + data.message);
     }

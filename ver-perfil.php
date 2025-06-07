@@ -11,7 +11,7 @@ if (!isset($_GET['id'])) {
     exit;
 }
 
-$idPerfil = intval($_GET['id']); // ID del perfil que estamos viendo
+$idPerfil = intval($_GET['id']); // ID del perfil 
 
 $modelo = new PerfilModel();
 $perfil = $modelo->getData("SELECT * FROM perfiles WHERE id_usu = ?", "i", $idPerfil);

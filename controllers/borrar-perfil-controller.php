@@ -25,11 +25,9 @@ $modelo = new PerfilModel();
 $sqlPerfil = "DELETE FROM perfiles WHERE id_usu = ?";
 $res1 = $modelo->actualizarDato($sqlPerfil, "i", $idUsuario);
 
-// Borrar teléfono (opcional)
 $sqlTel = "UPDATE usuarios SET tel = NULL WHERE id_usu = ?";
 $res2 = $modelo->actualizarDato($sqlTel, "i", $idUsuario);
 
-// Redirigir a principal
 if ($res1['status'] === 'success') {
     header("Location: ../principal.php");
     exit;

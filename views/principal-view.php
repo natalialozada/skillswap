@@ -75,7 +75,7 @@ if ($idUsuario) {
 <?php else: ?>
 
 
-<!-- ✅ Mostrar alertas -->
+<!--  Mostrar alertas -->
 <?php foreach ($alertas as $alerta): ?>
   <div class='alerta'><?php echo htmlspecialchars($alerta['mensaje']); ?></div>
   <?php

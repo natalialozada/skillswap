@@ -19,7 +19,7 @@ if (!$idUsuario) {
     exit;
 }
 
-// Procesar imagen si se subió
+
 $fotoRuta = "";
 if (isset($_FILES['foto_perfil']) && $_FILES['foto_perfil']['error'] === UPLOAD_ERR_OK) {
     $nombreArchivo = uniqid() . "_" . basename($_FILES['foto_perfil']['name']);
@@ -37,7 +37,6 @@ $sql = "UPDATE perfiles SET ciudad = ?, dias_disponibles = ?, sobre_mi = ?, habi
        ($fotoRuta ? ", foto_perfil = ?" : "") .
        " WHERE id_usu = ?";
 
-// Armar parámetros para actualizar perfil
 $params = [
     $_POST['ciudad'],
     $_POST['dias_disponibles'],
@@ -55,7 +54,7 @@ if ($fotoRuta) {
 $params[] = $idUsuario;
 $type .= "i";
 
-// Ejecutar actualizaciones
+
 $responsePerfil = $modelo->actualizarPerfil($sql, $type, ...$params);
 
 // Actualizar teléfono en tabla usuarios
@@ -63,7 +62,7 @@ $telefono = $_POST['telefono'] ?? '';
 $sqlTel = "UPDATE usuarios SET tel = ? WHERE id_usu = ?";
 $responseTel = $modelo->actualizarDato($sqlTel, "si", $telefono, $idUsuario);
 
-// Unificar respuesta
+
 if ($responsePerfil['status'] === 'success' && $responseTel['status'] === 'success') {
     echo json_encode(["status" => "success", "message" => "Perfil actualizado correctamente"]);
 } else {

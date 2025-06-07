@@ -30,17 +30,6 @@ CREATE TABLE intereses (
     FOREIGN KEY (id_usu) REFERENCES usuarios(id_usu) ON DELETE CASCADE
 );
 
-/*Tabla de mensajes entre usuarios*/
-CREATE TABLE mensajes (
-    id_msj INT AUTO_INCREMENT PRIMARY KEY,
-    usu_envia INT NOT NULL,
-    usu_recibe INT NOT NULL,
-    mensaje TEXT NOT NULL,
-    estado ENUM('pendiente', 'aceptado', 'rechazado') DEFAULT 'pendiente',
-    fecha_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usu_envia) REFERENCES usuarios(id_usu) ON DELETE CASCADE,
-    FOREIGN KEY (usu_recibe) REFERENCES usuarios(id_usu) ON DELETE CASCADE
-);
 CREATE TABLE perfiles (
   id_perfil INT AUTO_INCREMENT PRIMARY KEY,
   id_usu INT NOT NULL,

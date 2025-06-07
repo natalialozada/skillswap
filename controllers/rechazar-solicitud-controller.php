@@ -27,7 +27,7 @@ if (!$solicitud) {
     exit;
 }
 
-// Verifica que la sesión corresponda al destinatario
+
 $usuario = $_SESSION['usuario'];
 $datosUsuario = $login->getData("SELECT id_usu FROM usuarios WHERE nombre = ?", "s", $usuario);
 $idUsuario = $datosUsuario['id_usu'] ?? null;
@@ -37,7 +37,7 @@ if ($solicitud['id_destino'] != $idUsuario) {
     exit;
 }
 
-// Actualiza el estado a rechazada
+
 $success = $modelo->updateData("UPDATE conexiones SET estado = 'rechazada' WHERE id = ?", "i", $idSolicitud);
 
 if ($success) {

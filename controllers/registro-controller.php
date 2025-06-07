@@ -1,26 +1,26 @@
 <?php
  
-// Configurar el encabezado de respuesta como JSON
+
 header('Content-Type: application/json');
  
 try {
-    // Obtener los datos del formulario
+   
     $nombre = $_POST['nombre'] ?? null;
     $correo = $_POST['correo'] ?? null;
     $contrasena = $_POST['contrasena'] ?? null;
  
-    // Validar que los datos no estén vacíos
+    
     if (!$nombre || !$correo|| !$contrasena) {
         throw new Exception("Todos los campos son obligatorios.");
     }
  
-    // Cifrar la contraseña
+    
     $contraCifrada = password_hash($contrasena, PASSWORD_DEFAULT);
     if (!$contraCifrada) {
         throw new Exception("Error al cifrar la contraseña.");
     }
  
-    // Incluir el modelo y crear una instancia
+
     require_once "../models/registro-model.php";
     $obj1 = new Datos();
    

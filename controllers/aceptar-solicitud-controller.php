@@ -41,7 +41,6 @@ if ($solicitud['id_destino'] != $idUsuario) {
 $success = $modelo->updateData("UPDATE conexiones SET estado = 'aceptado' WHERE id = ?", "i", $idSolicitud);
 
 if ($success) {
-    // Ahora que todo fue correcto, insertamos la alerta
     $idRemitente = $solicitud['id_remitente'];
     $mensaje = "$usuario ha aceptado tu solicitud. Ahora puedes ver su teléfono.";
 

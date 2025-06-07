@@ -33,7 +33,7 @@ if (isset($_FILES['foto_perfil']) && $_FILES['foto_perfil']['error'] === UPLOAD_
     }
 }
 
-// Datos del formulario
+
 $nombre = $_POST['nombre'] ?? '';
 $ciudad = $_POST['ciudad'] ?? '';
 $dias = $_POST['dias_disponibles'] ?? '';
@@ -42,17 +42,17 @@ $ensenar = $_POST['habilidades_ensenar'] ?? '';
 $aprender = $_POST['habilidades_aprender'] ?? '';
 $telefono = $_POST['telefono'] ?? '';
 
-// Guardar en tabla perfiles
+
 $modelo = new PerfilModel();
 $sqlPerfil = "INSERT INTO perfiles (id_usu, ciudad, dias_disponibles, sobre_mi, habilidades_ensenar, habilidades_aprender, foto_perfil)
               VALUES (?, ?, ?, ?, ?, ?, ?)";
 $respuestaPerfil = $modelo->insertarPerfil($sqlPerfil, "issssss", $idUsuario, $ciudad, $dias, $sobreMi, $ensenar, $aprender, $fotoRuta);
 
-// Guardar teléfono en tabla usuarios
+
 $sqlTel = "UPDATE usuarios SET tel = ? WHERE id_usu = ?";
 $respuestaTel = $modelo->actualizarDato($sqlTel, "si", $telefono, $idUsuario);
 
-// Combinar respuestas
+
 if ($respuestaPerfil['status'] === 'success' && $respuestaTel['status'] === 'success') {
     echo json_encode(["status" => "success", "message" => "Perfil guardado correctamente"]);
 } else {

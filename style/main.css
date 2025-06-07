@@ -450,8 +450,7 @@
 }
 .modal-contenido .encabezado-modal, .modal-contenido--miPerfil .encabezado-modal {
   position: absolute;
-  top: 90px;
-  left: 50%;
+  left: 65%;
   transform: translateX(-50%);
   text-align: center;
   color: white;

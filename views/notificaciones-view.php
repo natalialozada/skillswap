@@ -29,6 +29,7 @@
       </div>
 
       <div class="tab-content" id="enviadas">
+        
         <?php foreach ($solicitudesEnviadas as $sol): ?>
           <div class="fila">
             <div>
