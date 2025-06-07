@@ -43,7 +43,7 @@ if (!$perfil) {
         <input type="text" name="ciudad" placeholder="Ciudad, País" value="<?php echo htmlspecialchars($perfil['ciudad']); ?>" required />
         <h3>Disponibilidad</h3>
         <input type="text" name="dias_disponibles" placeholder="Días disponibles" value="<?php echo htmlspecialchars($perfil['dias_disponibles']); ?>" required />
-        <label>Teléfono</label>
+        <h3>Teléfono</h3>
         <input type="text" name="telefono" value="<?php echo htmlspecialchars($telefono); ?>" required />  
       </div>
         

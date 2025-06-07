@@ -10,6 +10,7 @@ if (!isset($_SESSION['usuario'])) {
 
 require_once __DIR__ . '/../models/login-model.php';
 require_once __DIR__ . '/../models/guardar-perfil-model.php';
+require_once __DIR__ . '/../models/conexion-model.php';
 
 $nombreUsuario = $_SESSION['usuario'];
 $login = new login();
@@ -18,21 +19,28 @@ $idUsuario = $result['id_usu'] ?? null;
 
 $mostrarModal = false;
 $usuarios = [];
+$alertas = [];
 
 if ($idUsuario) {
-    $modelo = new PerfilModel();
-    $perfil = $modelo->getData("SELECT * FROM perfiles WHERE id_usu = ?", "i", $idUsuario);
+    $perfilModel = new PerfilModel();
+    $conexionModel = new ConexionModel();
+
+    $perfil = $perfilModel->getData("SELECT * FROM perfiles WHERE id_usu = ?", "i", $idUsuario);
+
     if (!$perfil) {
         $mostrarModal = true;
     } else {
-        $usuarios = $modelo->getAllUsersExcept($idUsuario);
+        $usuarios = $perfilModel->getAllUsersExcept($idUsuario);
+
+        // 🔔 Cargar alertas no leídas
+        $alertas = $conexionModel->getAll("SELECT * FROM alertas WHERE id_usuario = ? AND leido = 0", "i", $idUsuario);
     }
 }
 ?>
 
 <?php if ($mostrarModal): ?>
 <div id="modalPerfil" class="modal">
-  <div class="modal-contenido">
+  <div class="modal-contenido modal-contenido--miPerfil">
     <div class="encabezado-modal">
       <h2>¡Bienvenido! Primero crea tu perfil</h2>
     </div>
@@ -51,13 +59,13 @@ if ($idUsuario) {
 
       <div class="lado-derecho">
         <label>Sobre mí</label>
-        <textarea name="sobre_mi" placeholder="cuéntanos brevemente sobre ti" required></textarea>
+        <textarea name="sobre_mi" placeholder="Cuéntanos brevemente sobre ti" required></textarea>
 
         <label>Habilidades que puedo enseñar</label>
-        <textarea name="habilidades_ensenar" placeholder="por ejemplo piano, guitarra..." required></textarea>
+        <textarea name="habilidades_ensenar" placeholder="Por ejemplo: piano, guitarra..." required></textarea>
 
         <label>Habilidades que quiero aprender</label>
-        <textarea name="habilidades_aprender" placeholder="por ejemplo patinar, programar..." required></textarea>
+        <textarea name="habilidades_aprender" placeholder="Por ejemplo: patinar, programar..." required></textarea>
 
         <button type="submit" class="btn-primario">Guardar Perfil</button>
       </div>
@@ -66,14 +74,31 @@ if ($idUsuario) {
 </div>
 <?php else: ?>
 
+
+<!-- ✅ Mostrar alertas -->
+<?php foreach ($alertas as $alerta): ?>
+  <div class='alerta'><?php echo htmlspecialchars($alerta['mensaje']); ?></div>
+  <?php
+    // Marcar como leída
+    $conexionModel->actualizarDato("UPDATE alertas SET leido = 1 WHERE id = ?", "i", $alerta['id']);
+  ?>
+<?php endforeach; ?>
+
+<!-- Página principal -->
 <div class="contenedor-bienvenida">
-  <h1>¡HOLA, <span class="purple"><?php echo strtoupper($_SESSION['usuario']); ?></span>!</h1>
-  <div class="campana-notificaciones">
-  <img src="assets/img/campana.png" alt="Notificaciones" id="campana-icono" />
-  <span id="contador-notis" class="contador" style="display:none;">0</span>
-</div>
+  <div class="fila-bienvenida">
+    <h1 class="titulo-centrado">
+      ¡HOLA, <span class="purple"><?php echo strtoupper($_SESSION['usuario']); ?></span>!
+    </h1>
+    <div class="campana-notificaciones">
+      <img src="assets/img/campana.png" alt="Notificaciones" id="campana-icono" />
+      <span id="contador-notis" class="contador" style="display:none;">0</span>
+    </div>
+  </div>
   <p>Explora y empieza a conectar con más usuarios...</p>
 </div>
+
+
 
 <div class="contenedor-usuarios">
   <?php foreach ($usuarios as $usu): ?>
@@ -82,10 +107,8 @@ if ($idUsuario) {
       <h3><?php echo strtoupper($usu['nombre']); ?></h3>
       <p><strong>Quiere Aprender:</strong><br><?php echo nl2br($usu['habilidades_aprender']); ?></p>
       <p><strong>Puede Enseñarte:</strong><br><?php echo nl2br($usu['habilidades_ensenar']); ?></p>
-
       <a href="ver-perfil.php?id=<?php echo $usu['id_usu']; ?>" class="btn-primario">Ver perfil</a>
       <button class="btn-primario btn-conectar" data-id="<?php echo $usu['id_usu']; ?>">Conectar</button>
-
     </div>
   <?php endforeach; ?>
 </div>

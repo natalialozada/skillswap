@@ -508,12 +508,17 @@ $color-hover: #8b6396;
   justify-content: center;
   z-index: 9999;
 }
+#form-perfil {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
 
 .modal-contenido {
   background-color: black;
   border: 2px solid white;
   border-radius: 12px;
-  height: 82vh;
+  height: 95vh;
   display: flex;
   flex-direction: row;
   overflow: hidden;
@@ -522,7 +527,7 @@ $color-hover: #8b6396;
 
   .encabezado-modal {
   position: absolute;
-  top: 20px;
+  top: 90px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -625,7 +630,6 @@ $color-hover: #8b6396;
   padding: 30px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   color: white;
 
   label {
@@ -638,7 +642,7 @@ $color-hover: #8b6396;
     background-color: black;
     border: 1px solid white;
     color: white;
-    padding: 10px;
+    padding: 25px;
     margin-bottom: 15px;
     border-radius: 6px;
     resize: vertical;
@@ -653,7 +657,35 @@ $color-hover: #8b6396;
     gap: 20px;
   }
 }
+@media (max-width: 900px) {
+  .modal-contenido,
+  .modal-contenido--miPerfil {
+    flex-direction: column;
+    height: auto;
+    overflow-y: auto;
+    margin: 20px;
+    max-height: 90vh;
+  }
 
+  .lado-izquierdo,
+  .lado-derecho {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .lado-izquierdo {
+    align-items: center;
+    text-align: center;
+  }
+
+  .lado-derecho textarea {
+    font-size: 1rem;
+  }
+
+  .modal {
+    align-items: flex-start;
+  }
+}
 //visualización perfiles
 .contenedor-bienvenida {
   text-align: center;
@@ -807,7 +839,7 @@ $color-hover: #8b6396;
 
       .nota {
         margin-top: 30px;
-        font-size: 0.9rem;
+        font-size: 1.4rem;
         text-align: center;
         color: #ccc;
       }
@@ -831,6 +863,72 @@ $color-hover: #8b6396;
 .smaller{
   padding: 7px 10px;
 }
+
+//alerta
+.alerta {
+  background-color: #CB6CE6;
+  color: white;
+  padding: 15px 20px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 600px;
+  border: 2px solid white;
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+  animation: fadeOut 5s forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; display: none; }
+}
+
+//campana
+.fila-bienvenida {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+
+  .titulo-centrado {
+    text-align: center;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .campana-notificaciones {
+    position: absolute;
+    right:14px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    img {
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+    }
+
+    .contador {
+      position: absolute;
+      top: -5px;
+      right: -10px;
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding: 4px 7px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      display: inline-block;
+    }
+  }
+}
+
 
 
 

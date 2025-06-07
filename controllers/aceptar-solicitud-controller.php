@@ -12,17 +12,6 @@ require_once __DIR__ . '/../models/login-model.php';
 $login = new login();
 $modelo = new ConexionModel();
 
-$idRemitente = $solicitud['id_remitente'];
-$nombreUsuario = $_SESSION['usuario'];
-
-$mensaje = "$nombreUsuario ha aceptado tu solicitud. Ahora puedes ver su teléfono.";
-
-$modelo->insertConexion(
-    "INSERT INTO alertas (id_usuario, mensaje) VALUES (?, ?)",
-    "is",
-    $idRemitente,
-    $mensaje
-);
 $idSolicitud = $_POST['id'] ?? null;
 
 if (!$idSolicitud) {
@@ -52,6 +41,17 @@ if ($solicitud['id_destino'] != $idUsuario) {
 $success = $modelo->updateData("UPDATE conexiones SET estado = 'aceptado' WHERE id = ?", "i", $idSolicitud);
 
 if ($success) {
+    // Ahora que todo fue correcto, insertamos la alerta
+    $idRemitente = $solicitud['id_remitente'];
+    $mensaje = "$usuario ha aceptado tu solicitud. Ahora puedes ver su teléfono.";
+
+    $modelo->insertarDato(
+        "INSERT INTO alertas (id_usuario, mensaje) VALUES (?, ?)",
+        "is",
+        $idRemitente,
+        $mensaje
+    );
+
     echo json_encode(["status" => "success", "message" => "Conexión aceptada"]);
 } else {
     echo json_encode(["status" => "error", "message" => "No se pudo actualizar"]);

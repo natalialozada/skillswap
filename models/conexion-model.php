@@ -75,4 +75,20 @@ public function actualizarDato($sql, $types, ...$params)
         return ["status" => "error", "message" => "Error al actualizar: " . $stmt->error];
     }
 }
+public function insertarDato($sql, $types, ...$params)
+{
+    $stmt = $this->conn->prepare($sql);
+    if (!$stmt) {
+        return ["status" => "error", "message" => "Error al preparar: " . $this->conn->error];
+    }
+
+    $stmt->bind_param($types, ...$params);
+    $success = $stmt->execute();
+
+    if ($success) {
+        return ["status" => "success", "message" => "Dato insertado correctamente"];
+    } else {
+        return ["status" => "error", "message" => "Error al insertar: " . $stmt->error];
+    }
+}
 }
