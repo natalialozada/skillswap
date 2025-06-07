@@ -56,9 +56,9 @@ if (!$perfil) {
 
     <div class="acciones">
       <a href="editar-perfil.php" class="btn-primario" id="btn-editar">Editar Perfil</a>
-      <form action="borrar-perfil.php" method="post" onsubmit="return confirm('¿Estás seguro de que deseas borrar tu perfil?');">
-        <button type="submit" class="btn-primario borrar">Borrar Perfil</button>
-      </form>
+      <form action="controllers/borrar-perfil-controller.php" method="post" onsubmit="return confirm('¿Estás seguro de que deseas borrar tu perfil?');">
+  <button type="submit" class="btn-primario borrar">Borrar Perfil</button>
+</form>
       <a href="principal.php" class="btn-primario">Volver</a>
     </div>
   </div>

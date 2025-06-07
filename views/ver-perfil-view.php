@@ -31,6 +31,6 @@
   <p class="texto-bloqueado">Solo visible cuando haya una conexión aceptada</p>
 <?php endif; ?>
 
-      <a href="principal.php" class="btn-primario">Volver</a>
+      <a href="notificaciones.php" class="btn-primario">Volver</a>
     </div>
   </div>

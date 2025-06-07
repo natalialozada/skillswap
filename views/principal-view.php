@@ -83,6 +83,7 @@ if ($idUsuario) {
       <p><strong>Quiere Aprender:</strong><br><?php echo nl2br($usu['habilidades_aprender']); ?></p>
       <p><strong>Puede Enseñarte:</strong><br><?php echo nl2br($usu['habilidades_ensenar']); ?></p>
 
+      <a href="ver-perfil.php?id=<?php echo $usu['id_usu']; ?>" class="btn-primario">Ver perfil</a>
       <button class="btn-primario btn-conectar" data-id="<?php echo $usu['id_usu']; ?>">Conectar</button>
 
     </div>

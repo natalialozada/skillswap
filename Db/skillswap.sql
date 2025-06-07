@@ -63,4 +63,13 @@ CREATE TABLE conexiones (
   FOREIGN KEY (id_destino) REFERENCES usuarios(id_usu) ON DELETE CASCADE
 );
 
+CREATE TABLE alertas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_usuario INT NOT NULL, 
+  mensaje TEXT NOT NULL,
+  leido BOOLEAN DEFAULT 0,
+  fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
 

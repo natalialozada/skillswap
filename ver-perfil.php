@@ -41,8 +41,9 @@ if ($nombreActual) {
         $conexionModel = new ConexionModel();
         $conexion = $conexionModel->getData(
             "SELECT * FROM conexiones 
-             WHERE estado = 'aceptado' AND 
-             ((id_remitente = ? AND id_destino = ?) OR (id_remitente = ? AND id_destino = ?))",
+             WHERE ((id_remitente = ? AND id_destino = ?) 
+                 OR (id_remitente = ? AND id_destino = ?)) 
+               AND estado = 'aceptado'",
             "iiii",
             $idActual, $idPerfil,
             $idPerfil, $idActual
@@ -52,7 +53,6 @@ if ($nombreActual) {
     }
 }
 
-require_once "views/ver-perfil-view.php";
 ?>
 
 

@@ -18,6 +18,9 @@ if (!$idUsuario) {
     echo "<p>Error: Usuario no encontrado.</p>";
     exit;
 }
+$usuario = $login->getData("SELECT tel FROM usuarios WHERE id_usu = ?", "i", $idUsuario);
+$telefono = $usuario['tel'] ?? '';
+
 
 $modelo = new PerfilModel();
 $perfil = $modelo->getData("SELECT * FROM perfiles WHERE id_usu = ?", "i", $idUsuario);
@@ -40,7 +43,11 @@ if (!$perfil) {
         <input type="text" name="ciudad" placeholder="Ciudad, País" value="<?php echo htmlspecialchars($perfil['ciudad']); ?>" required />
         <h3>Disponibilidad</h3>
         <input type="text" name="dias_disponibles" placeholder="Días disponibles" value="<?php echo htmlspecialchars($perfil['dias_disponibles']); ?>" required />
-        </div>
+        <label>Teléfono</label>
+        <input type="text" name="telefono" value="<?php echo htmlspecialchars($telefono); ?>" required />  
+      </div>
+        
+
         
       </div>
 
@@ -53,6 +60,8 @@ if (!$perfil) {
 
         <label>Habilidades que quiero aprender</label>
         <textarea name="habilidades_aprender" required><?php echo $perfil['habilidades_aprender']; ?></textarea>
+
+        
 
         <div class="acciones">
         <button type="submit" class="btn-primario">Guardar Cambios</button>

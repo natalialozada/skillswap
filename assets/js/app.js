@@ -240,6 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+//notificaciones campana
 document.addEventListener("DOMContentLoaded", () => {
   fetch("controllers/notificaciones-controller.php")
     .then(res => res.json())
@@ -342,9 +343,11 @@ document.querySelectorAll(".btn-rechazar").forEach(btn => {
 
     if (data.status === "success") {
       alert("Solicitud rechazada ❌");
-      location.reload(); // Para ver el cambio
+      location.reload(); // Refresca para mostrar "RECHAZADA"
     } else {
       alert("⚠️ " + data.message);
     }
   });
 });
+
+
